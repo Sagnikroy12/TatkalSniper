@@ -1,0 +1,182 @@
+[
+  {
+    "name": "_gid",
+    "value": "GA1.3.375338522.1750934830",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_clck",
+    "value": "1mknbum%7C2%7Cfx4%7C0%7C2003",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "TS018d84e5",
+    "value": "01d83d9ce7dc293cd8f429982b6a1c83dd6bf99a523ec535b372fb057107e0f002fb756b8ace1e3bd85f35cd84411ecd29b3b77b68",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "FCNEC",
+    "value": "%5B%5B%22AKsRol8CloSk1om1o7ms4OBHHmuUu_na3zQ3IkL4_EjG9xHqR_0SC4Cm1_PlAIyVyFpB4rEiw60akExcXPrB0QWcvbBgQXKNeAdl6o6-T0NbN-WV9G8zttLuOGCjWcjvwarddsCkx2SZDH-NR2d919sGoGdyUWTC6w%3D%3D%22%5D%5D",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_ga",
+    "value": "GA1.1.1699461466.1750836560",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_ga_JSTMKS9Y3J",
+    "value": "GS2.1.s1751052827$o6$g0$t1751052827$j60$l0$h0",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_clsk",
+    "value": "1caxfmv%7C1751052828074%7C1%7C0%7Cq.clarity.ms%2Fcollect",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "bm_lso",
+    "value": "8B4D6D0EA7DDB63422CD9E81F3DCBFDDBEF9552DDCA476B26D282A48B4EE97D4~YAAQVq0cuOU+mHiXAQAA2anhsgSWoANULNmvpVGyuX1RCXQmu66wWHOyguRJSKyCXgCA3Pw//T1zftMTU2UQN4cPbqXhvSIrmOKqN+PGNSPeZS3E0n9iYgPLXT1yzi1tw3k/5rP6FWhpL2bVKipKfyjW61SGSYbbufew4DRUyuwsFwsTdjV0xRYG4r4BX0ZJ2VSze1FVdQLLNRiR/Ut8SPlc6uRoGOsnazPtngIWQwWrWLrbbXuZjr4/yTzMMutuK5MZwhYIsmHYJ+4oLtRteIkRfk+mCTnyM9Ol9FONLYOTBsosUmC33UmYx1gwzkr6Mj6413KulRvs3sflSGFp9R5p2SrKKK+NkksfT5RjGCFq7OLncNLRzrGvT888foe3iggCIcmjTkRQpcwY3/DyB/QXq8LqypsCeqOX8CUcI/SrTazMLo6ISbKA5iwIWVIvYSlJYM+wa12Te+KJtNHtZlEIig==^1751052829807",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "bm_sz",
+    "value": "C2755077DBD66FB135F8BC0B2D4D1804~YAAQVq0cuKw/mHiXAQAAXffhshzyeROTZiRpSrm3//bR4BlvzYdNpJ5H34tNJXsrhWXdPuEx75G8bj3nEFXrrLU4i2x4PxtdDDWGRReM/zjHdfOoXVe2bOzopBX8Fc228mKb3mCUPQjkWgwKBSCjc08wzgRM9F7pNPkemwXz9LfLrCNT1o9uTchaxXYSjCSIcJCwI6SDxfX5DAXAwYBQX08oQGVltalM8qF6Nuo7ioT9DHhT4E1HedgqDOWX/rwTtIyRDjWmY8jVLYfQVhqWWsg9rgF7eoyiuhK584vO7zwR78PGkmq8GpwFXJTMcTrT2sirYBe4I3/MaGJjfncBVB/re6n+6JzkvCQCdwUT2z99chxt20F2MM/yyGHWCSVXZ080nejZdbmxlAC3/VLrpEFXCstt0/j9nHGW0LlSOQ==~4277813~4539192",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_ga_SHTZYKNHG2",
+    "value": "GS2.1.s1751051888$o6$g1$t1751052842$j42$l0$h0",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_ga_NFN218243Z",
+    "value": "GS2.1.s1751051888$o6$g1$t1751052842$j43$l0$h0",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_ga_7K0RMWL72E",
+    "value": "GS2.1.s1751051888$o5$g1$t1751052842$j44$l0$h0",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_ga_8J9SC9WB3T",
+    "value": "GS2.1.s1751048016$o6$g1$t1751052842$j44$l0$h0",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_ga_HXEC5QES15",
+    "value": "GS2.1.s1751051888$o6$g1$t1751052842$j45$l0$h0",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_abck",
+    "value": "1A35DD1B6C7464B09B833D370DB3F2DA~-1~YAAQVq0cuOE/mHiXAQAAvBfisg4o6VnayarFmCfOiI14pkPLNpNsbbvnDC5+j5e6V3vhxbUE0KeKmrlwGWfGFPsGB0RjpVUCxwOHdnMzPZj1mddIw7P+ANcPxfdg6+hY2n6OEdL88mN/5Etf3Xnnh5cEYIkF/SG8J+5vkROP7Iq9bXelqTi1Ay/7Onok4+mejb4pyqlZX3qeTGj/kO8v7DtXhWLONDXaS8AH8WaF19d9mbdRG91CXsKUTi/UWnqs/RVwCNBuCSjg0RvPd0KwK/lv8FoCBESw47QUkqoAOa2UcavzINotRIxJIQIxrgoa1nQSDSl81p9RGdfQNCGt4RFmsPMbGap8iQ4OW1SdKcKqmTCTxgOkKQ0laDzEvEzN7Gt8q+artt0M24JlVJM1yQJ0Em23EfIgIYF4X7mjOCN4eq0X1BwPeNrKc/SU8GaQLJU5ZLLueLu75geBYswcRkTTFBwH+5C0aa4w5Gb2iqIOrZVZD4NB5lV0V/YvtKVOgSxi7DWVR91kb4gUzW7+CyrBpCmg3g5jC+6W05kBHCckj6WuI4jnDE8wasO+ztmTwXwNpQsuTJbvdR+RoxVEpEOM74GdbQI54TphTp6OkuOq1vH6AaWzRWCbqNdrNphVgiWKXyvdeJihdw1FhtZpsC6W46v5Bc2F16ilHMfrc8TVyOgJfafjTOC1TYN1qtb352nja9EGh1pnKfB6C9/6M2yFGofwIkEmYwR44nnsQbAB54nfBCINxEQL57ObHeTLUXYcv91yRZ4H+P1gk7Kz6Wc36yh91vBaZpRx/2zwLcSYu5vB2VvIPKZnukhX7jUmalggLQaytp7uFTOpQ8ONOkYSBLcOcsOhsnJJYDa20Sn2yaOXd3mh1sDRdgtNABNTyw==~-1~-1~1751056423",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "bm_so",
+    "value": "57C209F73B2434FA08ACF50DF1700A21DDC6E2C3A21FFBA7DF7219959D004A97~YAAQVq0cuExAmHiXAQAAxTTisgTS+YzaEln0gE/2iapFZ9zd0LcmElth5i4cpzijBCNhW8JTMfomC87yzBBneR1+VfizcD6YOVp3b9Uj7p/4Hz8pvLqnF+tbA7RXhzJ4+Ih9/mHVclGp7UZrabrCC1cSUdpbDnCDCj5AmxtMZ4sXobaamZHUIDPAaz1IACzWtUSFNzd8LyuN64jpRTdnpV2frmcn2dj7nLmeP/hL8EoOZsn5jq/E59rB2aAA0aavKwjU9QvP/0WGDC4ou9NHcqOORfgjh+SKBR2yo2otlaYXcP62B23oU2mpXVvktvV/YVyDEM/2KHwRnP4LC1OQL/ISh1MJJ43w+9GE7w3R8iUvJFd6a+RA/ls+yS9UrXNo/l6C4ZKX2ao5neQUYl29RwBMZw51oJbyYsOlpPvFmCkRHlFPTzYTErG+vpXCMhg56PBZraGBQweYZowEWXwuUk0VaA==",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__gads",
+    "value": "ID=45f6ff6aabbbaac0:T=1750836563:RT=1751053129:S=ALNI_MZ8-RtoX4xEVXq0uR2Dk8BfewnzQQ",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__gpi",
+    "value": "UID=000011394ac1ac3c:T=1750836563:RT=1751053129:S=ALNI_MYF6mIl8_2wriGmSJPyRbF39RvNbw",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__eoi",
+    "value": "ID=7ecbce374a529837:T=1750836563:RT=1751053129:S=AA-AfjaVx0tN9NR-KLFtglFJHU8P",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "RT",
+    "value": "\"z=1&dm=www.irctc.co.in&si=921db5e8-bf5c-48ba-bb27-fd3bc5145853&ss=mcf7n18w&sl=2&tt=5v3&bcn=%2F%2F684d0d4c.akstat.io%2F\"",
+    "domain": "www.irctc.co.in",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "Lax"
+  }
+]

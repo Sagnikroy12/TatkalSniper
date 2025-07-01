@@ -1,0 +1,20 @@
+{
+  "name": "irctc-automation",
+  "version": "1.0.0",
+  "description": "Automation script for logging into the IRCTC website.",
+  "main": "src/automation.ts",
+  "scripts": {
+    "start": "ts-node src/automation.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "puppeteer": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.4",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.0.0"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

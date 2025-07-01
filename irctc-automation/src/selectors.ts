@@ -1,0 +1,46 @@
+const SELECTORS = {
+    URL: 'https://www.irctc.co.in/nget/train-search',
+    THREE_DASH: '//i[contains(@class, "fa-align-justify")]/parent::a',
+    FROM: '//*[@id="origin"]/span/input',
+    TO: '//*[@id="destination"]/span/input',
+    DATE: '//*[@id="jDate"]/span/input',
+    CURRENT_DATE: '//*[@id="jDate"]/span/div/div/div[2]/table/tbody/tr[4]/td[4]/a',
+    CLASS: '//*[@id="journeyClass"]/div/div[2]/span',
+    TYPE: '//*[@id="journeyQuota"]/div',
+    SEARCH: '//button[@type="submit"]',
+    USERNAME: '//input[@placeholder="User Name"]',
+    PASSWORD: '//input[@placeholder="Password"]',
+    CAPTCHA_IMAGE: '//img[@class="captcha-img"]',
+    CAPTCHA_SOLVED: '//input[@placeholder="Enter Captcha"]',
+    LOGIN: '//button[contains(text(),"LOGIN")]',
+    // LOGIN: ' //button[contains(@class, "search_btn") and text()="LOGIN"]',
+    SIGN_IN: '//button[contains(text(),"SIGN IN")]',
+    ADD_PASSENGER: '//*[contains(text(),"Add Passenger")]',
+    OK_BUTTON: '//button[contains(text(),"OK")]',
+    NO: '//span[@class="ui-button-text ui-clickable" and contains(text(),"No")]',
+    FALLBACK_TRAIN: '(//div[@class="form-group no-pad col-xs-12 bull-back border-all"])',
+    JOURNEY_TIME: '//span[contains(@class,"col-xs-3 pull-left line-hr")]/span[contains(text(), ":")]',
+
+    NAME: '//input[@placeholder="Name"]',
+    AGE: '//input[@placeholder="Age"]',
+    GENDER: '//select[@formcontrolname = "passengerGender"]',
+    CONTINUE: '//button[@type="submit" and contains(@class, "search_btn")]',
+    CONTINUE2: '//button[@type="submit" and contains(@class, "train_Search btnDefault")]',
+    PAYMENT: '//button[@type="submit" and contains(@class, "mob-bot-btn search_btn")]',
+    CONTINUE3: '//button[@type="submit" and contains(@class, "btnDefault train_Search")]',
+    CARD: '(//*[contains(text(),"Visa/Master Card(Powered By HDFC BANK) ")])[2]',
+    PAY_BOOK: '//button[@class="btn btn-primary hidden-xs ng-star-inserted"]',
+
+    DEBIT_CARD: '//span[@id="DebitCardOtm"]',
+    CREDIT_CARD: '//span[@id="CreditCardOtm"]',
+    UPI: '//span[@id="UpiOtm"]',
+
+    CARD_NUMBER: ' //input[@id="mndtCardNo"]',
+    VALID_THRU: ' //input[@id="mandateDate"]',
+    CVV: '  //input[@id="mandateCvv"]',
+    CARD_HOLDER_NAME: '//input[@id="mandateName"]',
+    UPI_ID: ' //input[@id="mndtVpa"]',
+    PAY: ' //input[@id="autoDebitBtn"]'
+};
+
+export default SELECTORS;
