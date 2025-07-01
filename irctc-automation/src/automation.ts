@@ -6,7 +6,11 @@ import Tesseract from 'tesseract.js';
 import SELECTORS from './selectors';
 import fs from 'fs';
 
-// C:\Users\sagniroy\AppData\Local\Google\Chrome\User Data\Profile 1
+// Utility function to parse journey time from string format "HH:MM" to total minutes
+function parseJourneyTime(timeStr: string): number {
+    const [h, m] = timeStr.split(':').map(Number);
+    return h * 60 + m;
+}
 
 async function loginToIRCTC(
     trainName: string,
@@ -23,17 +27,30 @@ async function loginToIRCTC(
 
     // Connect to the running Chrome instance
     const browser = await chromium.connectOverCDP('http://localhost:9222');
-    const context = browser.contexts()[0] || await browser.newContext();
+    // Always create a new context with viewport: null to maximize window
+    const context = await browser.newContext({ viewport: null });
 
-    // Find an existing IRCTC tab or open a new one
-    let page = context.pages().find(p => p.url().includes('irctc'));
-    if (!page) {
-        page = await context.newPage();
-        await page.goto('https://www.irctc.co.in/nget/train-search');
+    // Always open a new window and a new tab for IRCTC
+    const page = await context.newPage();
+    await page.goto('https://www.irctc.co.in/nget/train-search');
 
-    } else {
-        // Focus the existing tab and wait a bit in case you need to finish login
-        await page.bringToFront();
+    // Maximize window if needed
+    try {
+        const session = await context.newCDPSession(page);
+        await session.send('Browser.setWindowBounds', {
+            windowId: (await session.send('Browser.getWindowForTarget')).windowId,
+            bounds: { windowState: 'maximized' }
+        });
+    } catch (e) {
+        console.warn('Could not maximize window via CDP:', (e as Error).message);
+    }
+
+    // Close any blank/newtab windows that may have opened
+    const allPages = context.pages();
+    for (const p of allPages) {
+        if (p !== page && (p.url() === 'chrome://newtab/' || p.url() === 'about:blank')) {
+            await p.close();
+        }
     }
 
     await page.waitForSelector(SELECTORS.OK_BUTTON, { state: 'visible', timeout: 10000 });
@@ -42,7 +59,6 @@ async function loginToIRCTC(
     await page.waitForSelector(SELECTORS.THREE_DASH, { state: 'visible', timeout: 10000 });
     await page.click(SELECTORS.THREE_DASH, { force: true });
 
-    // Optionally, check if login was successful here
     // Wait for the login button to be visible (user must click it manually)
     await page.waitForSelector(SELECTORS.LOGIN, { timeout: 500 });
     await page.click(SELECTORS.LOGIN, { force: true });
@@ -51,7 +67,7 @@ async function loginToIRCTC(
     await page.type(SELECTORS.USERNAME, username, { delay: 100 });
     await page.type(SELECTORS.PASSWORD, password, { delay: 100 });
 
-    // --- Add this block to solve captcha and click continue ---
+    // --- Solve captcha and click continue ---
     let loginCaptchaSolved = false;
     let loginRetryCount = 0;
     const loginMaxRetries = 5;
@@ -68,8 +84,8 @@ async function loginToIRCTC(
 
         const captchaBuffer = fs.readFileSync(captchaPath);
         const { data: { text: captchaTextRawLogin } } = await Tesseract.recognize(captchaBuffer, 'eng', {
-            logger: m => console.log(m),
-            langPath: path.resolve(__dirname, 'tessdata')
+            // logger: m => console.log(m),
+            langPath: path.resolve(__dirname, '../tessdata')
         });
         const captchaText = captchaTextRawLogin.replace(/\s/g, '').trim();
         console.log('Login captcha:', captchaText);
@@ -94,7 +110,7 @@ async function loginToIRCTC(
     if (!loginCaptchaSolved) {
         throw new Error('Failed to solve login captcha after 5 attempts.');
     }
-    // --- End of added block ---
+    // --- End of captcha block ---
 
     // Now wait for the "Last Transaction" element (login success)
     // await page.waitForSelector('(//*[contains(text()," Last Transaction Detail ")])[1]', { timeout: 30000 });
@@ -104,13 +120,11 @@ async function loginToIRCTC(
         message: page.url() !== SELECTORS.URL ? 'Login successful' : 'Login failed',
     };
 
-    // After login, reduce waits for a crisper automation experience
-
     // Fill FROM
     console.log('Filling FROM:', from);
     await page.fill(SELECTORS.FROM, '');
     await page.fill(SELECTORS.FROM, from);
-    await page.waitForSelector("//span[contains(@class, 'disable-selection') and contains(text(), 'Stations')]", { timeout: 3000 }); // reduced
+    await page.waitForSelector("//span[contains(@class, 'disable-selection') and contains(text(), 'Stations')]", { timeout: 3000 });
     const firstStationOption = await page.$("//span[contains(@class, 'disable-selection') and contains(text(), 'Stations')]/ancestor::li/following-sibling::li[1]");
     if (firstStationOption) {
         await firstStationOption.click();
@@ -123,7 +137,7 @@ async function loginToIRCTC(
     console.log('Filling TO:', to);
     await page.fill(SELECTORS.TO, '');
     await page.fill(SELECTORS.TO, to);
-    await page.waitForSelector('//ul[@role="listbox"]/li[1]', { timeout: 3000 }); // reduced
+    await page.waitForSelector('//ul[@role="listbox"]/li[1]', { timeout: 3000 });
     await page.click('//ul[@role="listbox"]/li[1]');
     await page.locator(SELECTORS.TO).evaluate(e => e.blur());
     await selectTomorrow(page);
@@ -132,10 +146,10 @@ async function loginToIRCTC(
     await page.click(`//*[contains(text(), "${className}")]`);
     await page.click(SELECTORS.TYPE);
     await page.click('//*[contains(text(), "PREMIUM TATKAL")]');
-    await page.waitForSelector(SELECTORS.SEARCH, { timeout: 2000 }); // reduced
+    await page.waitForSelector(SELECTORS.SEARCH, { timeout: 2000 });
     await page.click(SELECTORS.SEARCH);
 
-    await page.waitForSelector('//div[contains(@class,"train-heading")]', { timeout: 5000 }); // reduced
+    await page.waitForSelector('//div[contains(@class,"train-heading")]', { timeout: 5000 });
     const trainNameElements = await page.$$('//div[contains(@class,"train-heading")]');
     let trainIndex = -1;
     const userTrain = trainName.trim().toUpperCase();
@@ -156,17 +170,6 @@ async function loginToIRCTC(
     // Select class and check availability as before
     await page.click(`${trainRowXPath}//strong[contains(text(), "${className}")]`);
     await page.click('//*[contains(text(),"AVAILABLE")]');
-
-    // Wait until 10:00:00 AM IST before clicking "Book Now"
-    // console.log('Waiting for 10:00:00 AM IST to enable "Book Now"...');
-    // while (true) {
-    //     const now = await getISTTime();
-    //     if (now.getHours() > 10 || (now.getHours() === 10 && (now.getMinutes() > 0 || now.getSeconds() >= 0))) {
-    //         break;
-    //     }
-    
-    //     await new Promise(res => setTimeout(res, 200)); // check every 200ms
-    // }
 
     // Wait for the "Book Now" button to be enabled and visible
     const bookNowSelector = `${trainRowXPath}//*[contains(text(), "Book Now")]`;
@@ -200,6 +203,7 @@ async function loginToIRCTC(
                     }
                 }
             }
+            
         }
 
         if (bestTrainIndex !== -1) {
@@ -220,17 +224,17 @@ async function loginToIRCTC(
         const passenger = safePassengers[i];
 
         // Wait for the Name field to be present
-        await page.waitForSelector(`(${SELECTORS.NAME})[${i + 1}]`, { timeout: 2000 }); // reduced
+        await page.waitForSelector(`(${SELECTORS.NAME})[${i + 1}]`, { timeout: 2000 });
 
         // Fill Name
         await page.fill(`(${SELECTORS.NAME})[${i + 1}]`, passenger.name);
 
         // Wait for Age field
-        await page.waitForSelector(`(${SELECTORS.AGE})[${i + 1}]`, { timeout: 2000 }); // reduced
+        await page.waitForSelector(`(${SELECTORS.AGE})[${i + 1}]`, { timeout: 2000 });
         await page.fill(`(${SELECTORS.AGE})[${i + 1}]`, passenger.age);
 
         // Wait for Gender field
-        await page.waitForSelector(`(${SELECTORS.GENDER})[${i + 1}]`, { timeout: 2000 }); // reduced
+        await page.waitForSelector(`(${SELECTORS.GENDER})[${i + 1}]`, { timeout: 2000 });
 
         // Select Gender
         let genderValue = '';
@@ -253,7 +257,7 @@ async function loginToIRCTC(
 
     while (!captchaSolved && retryCount < maxRetries) {
         // Solve captcha using Tesseract before clicking CONTINUE
-        await page.waitForSelector(SELECTORS.CAPTCHA_IMAGE, { timeout: 5000 }); // reduced
+        await page.waitForSelector(SELECTORS.CAPTCHA_IMAGE, { timeout: 5000 });
         const captchaElement2 = await page.$(SELECTORS.CAPTCHA_IMAGE);
         if (!captchaElement2) {
             throw new Error('Captcha image element not found!');
@@ -269,7 +273,7 @@ async function loginToIRCTC(
 
         const { data: { text: captchaTextRaw } } = await Tesseract.recognize(captchaBuffer2, 'eng', {
             logger: m => console.log(m),
-            langPath: path.resolve(__dirname, 'tessdata') // Make sure this is the directory, not the file
+            langPath: path.join(__dirname, '..', 'tessdata')
         });
         // Accept all upper/lowercase letters, digits, and special characters (remove only whitespace)
         const captchaText2 = captchaTextRaw.replace(/\s/g, '').trim();
@@ -297,11 +301,9 @@ async function loginToIRCTC(
         throw new Error('Failed to solve captcha after 5 attempts.');
     }
 
-    // await page.click(SELECTORS.CARD);
     await page.click(SELECTORS.PAY_BOOK);
 
     // Assume payment details are passed as a JSON string via --payment argument
-    // Accept arguments from the process if available, otherwise set as empty object
     const paymentArgs = typeof process !== 'undefined' && process.argv ? require('minimist')(process.argv.slice(2)) : {};
     const paymentDetailsFromArgs = paymentArgs.payment ? JSON.parse(paymentArgs.payment) : null;
 
@@ -332,19 +334,6 @@ async function loginToIRCTC(
     return response;
 }
 
-// // Utility function to get IST time from a reliable API
-// async function getISTTime(): Promise<Date> {
-//     const response = await fetch('http://worldtimeapi.org/api/timezone/Asia/Kolkata');
-//     const data = await response.json() as { datetime: string };
-//     return new Date(data.datetime);
-// }
-
-// Function to parse journey time from string format "HH:MM" to total minutes
-function parseJourneyTime(timeStr: string): number {
-    const [h, m] = timeStr.split(':').map(Number);
-    return h * 60 + m;
-}
-
 // Accept arguments from the GUI via command line
 if (require.main === module) {
     // npm install minimist
@@ -361,55 +350,11 @@ if (require.main === module) {
     loginToIRCTC(trainName, className, from, to, passengers, paymentDetails)
         .then(res => {
             console.log(res);
-            process.exit(0);
         })
         .catch(err => {
-            console.error(err);
-            process.exit(1);
+            console.error('Automation failed:', err);
         });
 }
 
 export { loginToIRCTC };
 
-// Wait for "NO" dialog and handle fallback trains if needed
-// async function handleNoDialog(page: Page) {
-//     try {
-//         await page.waitForSelector(SELECTORS.NO, { timeout: 3000 });
-//         await page.click(SELECTORS.NO);
-//         console.log('"NO" dialog detected and clicked.');
-
-//         // Get all fallback train containers
-//         const fallbackTrains = await page.$$(SELECTORS.FALLBACK_TRAIN);
-
-//         let bestTrainIndex = -1;
-//         let lowestJourneyTime = Infinity;
-
-//         for (let i = 0; i < fallbackTrains.length; i++) {
-//             // Find journey time element inside this fallback train
-//             const journeyTimeElement = await fallbackTrains[i].$(
-//                 './/span[contains(@class,"col-xs-3 pull-left line-hr")]/span[contains(text(), ":")]'
-//             );
-//             if (journeyTimeElement) {
-//                 const timeText = (await journeyTimeElement.textContent())?.trim() || '';
-//                 if (/^\d{1,2}:[0-5]\d$/.test(timeText)) {
-//                     const minutes = parseJourneyTime(timeText);
-//                     if (minutes < lowestJourneyTime) {
-//                         lowestJourneyTime = minutes;
-//                         bestTrainIndex = i;
-//                     }
-//                 }
-//             }
-//         }
-
-//         if (bestTrainIndex !== -1) {
-//             // Click on the best fallback train (lowest journey time)
-//             await fallbackTrains[bestTrainIndex].click();
-//             console.log(`Selected fallback train at index ${bestTrainIndex} with journey time ${lowestJourneyTime} minutes.`);
-//             // Continue with booking logic for this train...
-//         } else {
-//             throw new Error('No suitable fallback train found with a valid journey time.');
-//         }
-//     } catch (e: any) {
-//         console.log('NO dialog not detected or no fallback train needed:', e.message);
-//     }
-// }

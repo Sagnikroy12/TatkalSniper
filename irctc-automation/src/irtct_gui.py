@@ -6,6 +6,9 @@ import os
 import time
 import socket
 
+# Set the Tesseract-OCR data path
+os.environ["TESSDATA_PREFIX"] = r"D:\Freelancing\Tatkal_Sniper\TatkalSniper\irctc-automation\tessdata"
+
 class IRCTCApp(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -209,7 +212,12 @@ class IRCTCApp(tk.Tk):
                 return
 
         chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-        profile_path = r"C:\Users\sagniroy\AppData\Local\Google\Chrome\User Data\Profile 1"
+        # Dynamically get the user's home directory and build the Chrome profile path
+        user_home = os.path.expanduser("~")
+        profile_path = os.path.join(
+            user_home,
+            "AppData", "Local", "Google", "Chrome", "User Data", "Profile 5"
+        )
         port = 9222
 
         # Check if Chrome with CDP is already running
@@ -243,7 +251,8 @@ class IRCTCApp(tk.Tk):
         subprocess.run(args, check=True)
 
         # Optionally, close Chrome after automation
-        # chrome_proc.terminate()
+        if chrome_proc is not None:
+            chrome_proc.terminate()
 
 if __name__ == "__main__":
     app = IRCTCApp()
