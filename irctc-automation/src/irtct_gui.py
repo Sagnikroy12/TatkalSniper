@@ -237,17 +237,18 @@ class IRCTCApp(tk.Tk):
 
         # Run your automation script (Node/TypeScript)
         args = [
-            r"C:\Program Files\nodejs\npx.cmd", "ts-node",
-            os.path.abspath("irctc-automation/src/automation.ts"),
-            "--from", from_station,
-            "--to", to_station,
-            "--train", train_name,
-            "--class", train_class,
-            "--passengers", json.dumps(passengers),
-            "--payment", json.dumps(payment_details),
-            "--username", login_id,
-            "--password", password
-        ]
+    r"C:\Program Files\nodejs\npx.cmd", "ts-node",
+    os.path.abspath("irctc-automation/src/automation.ts"),
+    "--from", from_station,
+    "--to", to_station,
+    "--train", train_name,
+    "--class", train_class,
+    "--passengers", json.dumps(passengers),
+    "--payment", json.dumps(payment_details),
+    "--username", login_id,
+    "--password", password
+]
+
         subprocess.run(args, check=True)
 
         # Optionally, close Chrome after automation
