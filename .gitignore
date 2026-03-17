@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+dist/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Debug / temp captcha screenshots
+captcha_*.png
+captcha_*.jpg
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
