@@ -1,11 +1,54 @@
 {
+<<<<<<< HEAD
+  "name": "irctc-automation",
+  "version": "1.0.0",
+  "description": "Automation script for logging into the IRCTC website.",
+  "main": "src/automation.ts",
+  "scripts": {
+    "start": "ts-node src/automation.ts",
+    "build": "tsc"
+  },
   "dependencies": {
-    "playwright": "^1.53.1",
-    "tesseract.js": "^6.0.1"
+    "puppeteer": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.0.4",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.0.0"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+=======
+  "name": "tatkal-sniper",
+  "version": "1.0.0",
+  "description": "Automated IRCTC Tatkal ticket booking using Playwright and Tesseract OCR",
+  "main": "dist/automation.js",
+  "scripts": {
+    "start": "ts-node src/automation.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "irctc",
+    "automation",
+    "playwright",
+    "tatkal",
+    "booking"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "minimist": "^1.2.8",
+    "playwright": "^1.40.0",
+    "tesseract.js": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^20.11.0",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.3.3"
   }
+>>>>>>> refactor-done
 }
